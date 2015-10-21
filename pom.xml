@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Copyright 2015 Freek de Bruijn.
+    Licensed under the Apache License version 2.0 (see http://www.apache.org/licenses/LICENSE-2.0.html).
+
+    Description: Maven configuration for the Maze Generator tool.
+    Author: Freek de Bruijn (freekdb@gmail.com).
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- General project settings. -->
+    <name>Maze Generator</name>
+    <description>Maze Generator tool for generating mazes.</description>
+    <url>https://github.com/freekdb/mazegenerator</url>
+    <groupId>nl.xs4all.home.freekdb.maze</groupId>
+    <artifactId>MazeGenerator</artifactId>
+    <version>0.1.0</version>
+    <packaging>jar</packaging>
+
+    <properties>
+
+        <!--&lt;!&ndash; Dependency versions. &ndash;&gt;-->
+        <!--<blend4j.version>0.1.2</blend4j.version>-->
+        <findbugs-jsr305.version>2.0.3</findbugs-jsr305.version>
+        <!--<groovy-version>2.4.4</groovy-version>-->
+        <!--<guava.version>15.0</guava.version>-->
+        <!--<guice.version>3.0</guice.version>-->
+        <!--<httpclient.version>4.3.2</httpclient.version>-->
+        <!--<json-simple.version>1.1.1</json-simple.version>-->
+        <junit.version>4.12</junit.version>
+        <!--<mockito.version>1.9.5</mockito.version>-->
+        <!--<slf4j.version>1.7.7</slf4j.version>-->
+
+        <!-- Source and output properties. -->
+        <java-version>1.8</java-version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- Plugin versions. -->
+        <coveralls-maven-plugin.version>2.2.0</coveralls-maven-plugin.version>
+        <findbugs-maven-plugin.version>3.0.1</findbugs-maven-plugin.version>
+        <!--<gmaven-plugin.version>1.5</gmaven-plugin.version>-->
+        <jacoco-maven-plugin.version>0.7.1.201405082137</jacoco-maven-plugin.version>
+        <maven-checkstyle-plugin.version>2.15</maven-checkstyle-plugin.version>
+        <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
+        <maven-jar-plugin.version>2.4</maven-jar-plugin.version>
+        <maven-jxr-plugin.version>2.5</maven-jxr-plugin.version>
+        <maven-pmd-plugin.version>3.4</maven-pmd-plugin.version>
+        <maven-project-info-reports-plugin.version>2.7</maven-project-info-reports-plugin.version>
+        <maven-surefire-plugin.version>2.17</maven-surefire-plugin.version>
+
+    </properties>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>central</id>
+            <name>Maven Plugin Repository</name>
+            <url>http://repo1.maven.org/maven2</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <dependencies>
+
+        <!--&lt;!&ndash; Dependency for blend-4j. See https://github.com/jmchilton/blend4j#jars for more details. &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>com.github.jmchilton.blend4j</groupId>-->
+            <!--<artifactId>blend4j</artifactId>-->
+            <!--<version>${blend4j.version}</version>-->
+        <!--</dependency>-->
+
+        <!--&lt;!&ndash; JSON Parser. &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>com.googlecode.json-simple</groupId>-->
+            <!--<artifactId>json-simple</artifactId>-->
+            <!--<version>${json-simple.version}</version>-->
+        <!--</dependency>-->
+
+        <!--&lt;!&ndash; Dependency for Guava. &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>com.google.guava</groupId>-->
+            <!--<artifactId>guava</artifactId>-->
+            <!--<version>${guava.version}</version>-->
+        <!--</dependency>-->
+
+        <!--&lt;!&ndash; Dependency for HttpClient. &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.httpcomponents</groupId>-->
+            <!--<artifactId>httpclient</artifactId>-->
+            <!--<version>${httpclient.version}</version>-->
+        <!--</dependency>-->
+
+        <!-- Dependency for JUnit. -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!--&lt;!&ndash; Dependency for Mockito. &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.mockito</groupId>-->
+            <!--<artifactId>mockito-all</artifactId>-->
+            <!--<version>${mockito.version}</version>-->
+            <!--<scope>test</scope>-->
+        <!--</dependency>-->
+
+        <!--&lt;!&ndash; Dependencies for the logging framework: SLF4J and log4j. &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.slf4j</groupId>-->
+            <!--<artifactId>slf4j-api</artifactId>-->
+            <!--<version>${slf4j.version}</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.slf4j</groupId>-->
+            <!--<artifactId>slf4j-log4j12</artifactId>-->
+            <!--<version>${slf4j.version}</version>-->
+        <!--</dependency>-->
+
+        <!-- Dependency for JSR-305 annotations (like @NonNull and @Nullable) for Findbugs. -->
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <version>${findbugs-jsr305.version}</version>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <!--&lt;!&ndash; Dependency for Google Guice dependency injection. See https://code.google.com/p/google-guice/ for more-->
+             <!--information. &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>com.google.inject</groupId>-->
+            <!--<artifactId>guice</artifactId>-->
+            <!--<version>${guice.version}</version>-->
+        <!--</dependency>-->
+
+        <!--&lt;!&ndash; Dependency for Groovy. &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.codehaus.groovy</groupId>-->
+            <!--<artifactId>groovy-all</artifactId>-->
+            <!--<version>${groovy-version}</version>-->
+        <!--</dependency>-->
+
+    </dependencies>
+
+    <dependencyManagement/>
+
+    <build>
+
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <testSourceDirectory>src/test/java</testSourceDirectory>
+        <directory>target</directory>
+
+        <plugins>
+
+            <!-- Specify Java version for sources and targets (.class files). -->
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <compilerArgument>-Xlint:unchecked</compilerArgument>
+                    <source>${java-version}</source>
+                    <target>${java-version}</target>
+                </configuration>
+            </plugin>
+
+            <!--&lt;!&ndash; Groovy compilation. &ndash;&gt;-->
+            <!--<plugin>-->
+                <!--<groupId>org.codehaus.gmaven</groupId>-->
+                <!--<artifactId>gmaven-plugin</artifactId>-->
+                <!--<version>${gmaven-plugin.version}</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<goals>-->
+                            <!--<goal>compile</goal>-->
+                            <!--<goal>testCompile</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+                <!--<configuration>-->
+                    <!--<providerSelection>2.0</providerSelection>-->
+                    <!--<source>2.0</source>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
+
+            <!-- Use maven-jar-plugin to create executable jar with the "mvn package" command. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven-jar-plugin.version}</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>nl.vumc.biomedbridges.examples.ConcatenateExample</mainClass>
+                            <classpathPrefix>dependency-jars/</classpathPrefix>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <!-- Run Checkstyle in the verify phase. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${maven-checkstyle-plugin.version}</version>
+                <inherited>true</inherited>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>checkstyle</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <configLocation>src/configuration/checkstyle.xml</configLocation>
+                    <suppressionsLocation>src/configuration/checkstyle-suppressions.xml</suppressionsLocation>
+                    <!--
+                        Workaround for resolving the suppressions file in a Maven build: always check two
+                        module levels above the current project. IDE builds should provide the config_loc
+                        property, hence this setting will not influence the builds triggered in IDEs.
+                    -->
+                    <!--<propertyExpansion>config_loc=${project.parent.parent.basedir}/</propertyExpansion>-->
+                    <failsOnError>true</failsOnError>
+                </configuration>
+            </plugin>
+
+            <!-- JaCoCo is used to determine the code coverage of the unit tests. -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco-maven-plugin.version}</version>
+                <executions>
+                    <!--
+                        Prepares the property pointing to the JaCoCo runtime agent which is passed as VM argument when
+                        Maven executes the Surefire plugin.
+                    -->
+                    <execution>
+                        <id>pre-unit-test</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Sets the path to the file which contains the execution data. -->
+                            <destFile>${project.build.directory}/jacoco.exec</destFile>
+                            <!-- Sets the name of the property containing the settings for JaCoCo runtime agent. -->
+                            <propertyName>surefireArgLine</propertyName>
+                        </configuration>
+                    </execution>
+                    <!--
+                        Ensures that the code coverage report for unit tests is created after unit tests have been run.
+                    -->
+                    <execution>
+                        <id>post-unit-test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Sets the path to the file which contains the execution data. -->
+                            <dataFile>${project.build.directory}/jacoco.exec</dataFile>
+                            <!-- Sets the output directory for the code coverage report. -->
+                            <outputDirectory>${project.reporting.outputDirectory}/code-coverage-jacoco</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Surefire runs the unit tests. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <!-- Sets the VM argument line used when unit tests are run. -->
+                    <!--suppress MavenModelInspection -->
+                    <argLine>${surefireArgLine}</argLine>
+                </configuration>
+            </plugin>
+
+            <!-- This plugin reports general project information. -->
+            <plugin>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>${maven-project-info-reports-plugin.version}</version>
+            </plugin>
+
+            <!-- The coveralls plugin to get line coverage information on the GitHub page. -->
+            <plugin>
+                <groupId>org.eluder.coveralls</groupId>
+                <artifactId>coveralls-maven-plugin</artifactId>
+                <version>${coveralls-maven-plugin.version}</version>
+            </plugin>
+
+        </plugins>
+
+    </build>
+
+    <reporting>
+        <plugins>
+
+            <!-- Added the JXR plugin (Java cross-reference tool) after reading the following question and answers on
+              -  Stack Overflow (http://stackoverflow.com/questions/12038238/unable-to-locate-source-xref-to-link-to) to
+              -  get rid of the "Unable to locate Source XRef to link to - DISABLED" warning when running Checkstyle. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>${maven-jxr-plugin.version}</version>
+            </plugin>
+
+            <!-- FindBugs configuration. See http://mojo.codehaus.org/findbugs-maven-plugin/ for more information. -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>${findbugs-maven-plugin.version}</version>
+                <!--<configuration>-->
+                    <!--<excludeFilterFile>src/configuration/findBugsFilter.xml</excludeFilterFile>-->
+                <!--</configuration>-->
+            </plugin>
+
+            <!-- PMD ("Programming Mistake Detector") and CPD (Copy/Paste Detector) configuration. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>${maven-pmd-plugin.version}</version>
+                <configuration>
+                    <!--<linkXref>true</linkXref>-->
+                    <sourceEncoding>UTF-8</sourceEncoding>
+                    <minimumTokens>100</minimumTokens>
+                    <targetJdk>${java-version}</targetJdk>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </reporting>
+
+</project>
